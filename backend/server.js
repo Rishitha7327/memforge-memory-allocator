@@ -4,12 +4,14 @@ const koffi = require("koffi");
 const path = require("path");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(cors({
-    origin: "http://localhost:5173"
+    origin: [
+        "http://localhost:5173",
+        process.env.FRONTEND_URL
+    ].filter(Boolean)
 }));
-
 app.use(express.json());
 
 // Load the C shared library
